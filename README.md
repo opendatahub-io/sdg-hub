@@ -1,6 +1,6 @@
-# SDG Podman Testing
+# SDG Testing
 
-This repository contains Docker configuration for testing SDG Hub components.
+This repository contains container configuration for testing SDG Hub components.
 
 ## Prerequisites
 
