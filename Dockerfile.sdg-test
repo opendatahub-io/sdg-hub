@@ -24,4 +24,4 @@ WORKDIR /opt/app-root/src/sdg_hub
 
 ENTRYPOINT []
 
-CMD ["/bin/bash", "-c", "uv run tox -e py3-unit,py3-integration"]
+CMD ["/bin/bash", "-c", "python -m pytest tests/integration/ -v"]
