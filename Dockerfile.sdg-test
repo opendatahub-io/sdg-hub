@@ -1,0 +1,27 @@
+# Use the workbench image
+ARG BASE_WORKBENCH_IMAGE=quay.io/opendatahub/workbench-images:jupyter-minimal-ubi9-python-3.12-pr-2113
+FROM ${BASE_WORKBENCH_IMAGE}
+
+USER 0
+RUN dnf install -y git && dnf clean all
+
+USER 1001
+WORKDIR /opt/app-root/src
+
+# Clone a specific branch
+ARG GIT_BRANCH=main
+RUN git clone --branch ${GIT_BRANCH} --single-branch https://github.com/Red-Hat-AI-Innovation-Team/sdg_hub.git
+
+# Install sdg_hub with examples and dev extras from PyPI
+ARG SDG_HUB_VERSION=latest
+RUN if [ "$SDG_HUB_VERSION" = "latest" ]; then \
+        pip install --no-cache-dir "sdg_hub[examples,dev]"; \
+    else \
+        pip install --no-cache-dir "sdg_hub[examples,dev]==${SDG_HUB_VERSION}"; \
+    fi
+
+WORKDIR /opt/app-root/src/sdg_hub
+
+ENTRYPOINT []
+
+CMD ["/bin/bash", "-c", "uv run tox -e py3-unit,py3-integration"]
