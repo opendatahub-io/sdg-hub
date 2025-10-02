@@ -7,9 +7,9 @@ This repository contains Docker configuration for testing SDG Hub components.
 - Podman installed on your system
 - Valid OpenAI API key
 
-## Building the Docker Image
+## Building the Image
 
-To build the Docker image for testing (currently targeting the integration test PR in upstream), run:
+To build the image for testing (currently targeting the integration test PR in upstream), run:
 
 ```bash
 podman build -f Dockerfile.sdg-test --build-arg GIT_BRANCH=feat/integration-test-base -t sdg-hub-tester:latest .
